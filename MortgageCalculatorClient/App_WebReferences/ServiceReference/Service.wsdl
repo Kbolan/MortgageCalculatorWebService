@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">A Simple Web Monthly Mortgage Calculator Service</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="calculate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="p" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="i" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="n" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="calculateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="calculateResult" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="calculateSoapIn">
+    <wsdl:part name="parameters" element="tns:calculate" />
+  </wsdl:message>
+  <wsdl:message name="calculateSoapOut">
+    <wsdl:part name="parameters" element="tns:calculateResponse" />
+  </wsdl:message>
+  <wsdl:portType name="MortgageCalculatorWebServiceSoap">
+    <wsdl:operation name="calculate">
+      <wsdl:input message="tns:calculateSoapIn" />
+      <wsdl:output message="tns:calculateSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MortgageCalculatorWebServiceSoap" type="tns:MortgageCalculatorWebServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="calculate">
+      <soap:operation soapAction="http://tempuri.org/calculate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="MortgageCalculatorWebServiceSoap12" type="tns:MortgageCalculatorWebServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="calculate">
+      <soap12:operation soapAction="http://tempuri.org/calculate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MortgageCalculatorWebService">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">A Simple Web Monthly Mortgage Calculator Service</wsdl:documentation>
+    <wsdl:port name="MortgageCalculatorWebServiceSoap" binding="tns:MortgageCalculatorWebServiceSoap">
+      <soap:address location="http://localhost/MortgageWebService/Service.asmx" />
+    </wsdl:port>
+    <wsdl:port name="MortgageCalculatorWebServiceSoap12" binding="tns:MortgageCalculatorWebServiceSoap12">
+      <soap12:address location="http://localhost/MortgageWebService/Service.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
